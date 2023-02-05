@@ -1,18 +1,10 @@
 # NFT-Marketplace
 
-## What upgraded from V1 -> V2 ?
-
-There were some fixes to the nftMarketplace as well as NFT contract not keeping correct state about NFTs if maliciously used.
-
 ## Status
 
-The NFT Marketplace is currently running and fully functional on Goerli at
+The NFT Marketplace is currently running and fully functional on the Mantle Testnet
 
-1. NFT Market:
-
-2. NFT:
-
-The Website is online and running at [Website](https://fluffy-moonbeam-06ab85.netlify.app/)
+The Website is online and running at [Website]()
 
 ## Local environment set up
 
@@ -41,11 +33,21 @@ A NFT Marketplace running currently on Goerli. Let's you mint, sell and buy NFT'
 
 ## Stack
 
+"@transak/transak-sdk": "^1.0.31",
+"@walletconnect/web3-provider": "^1.8.0",
+"authereum": "^0.1.14",
+"axios": "^0.24.0",
+"gh-pages": "^3.2.3",
+"ipfs-http-client": "^55.0.0",
+"walletlink": "^2.5.0",
+"web3modal": "^1.9.9"
+
 ### Blockchain Technologies
 
 1. Environment - [Hardhat](https://hardhat.org/)
 2. File Storage - [IPFS](https://github.com/ipfs/js-ipfs/tree/master/packages/ipfs-http-client#install)
 3. Client - [ethers.js](https://docs.ethers.io/v5/)
+4. Testnet Mantle (EVM compatible layer 2 scalability solution, Optimistic Rollup) - [Mantle](https://www.mantle.xyz/developers)
 
 ## Biconomy
 
@@ -53,18 +55,7 @@ A NFT Marketplace running currently on Goerli. Let's you mint, sell and buy NFT'
 
 NFT Marketplace: hhttps://www.youtube.com/watch?v=zYdKS_B3RJo
 
-SKD Hyphen: https://www.youtube.com/watch?v=cViRhJu1qIM
-
-### Hyphen Widget
-
-The Biconomy Hyphen Widget allows for fast and easy cross chain movement of funds. You can easily with a few clicks and seconds transfer your
-Tokens from one network to another
-
-Biconomy docs: https://docs.biconomy.io/products/hyphen-instant-cross-chain-transfers/hyphen-widget
-
-Added at: [Code]()
-
-### Gasless Transactions
+### Gasless Transactions (currently still working out how to connect this with mantle, if I even can)
 
 This NFT allows party gasless NFT minting,selling and buying (mintNFT(), sellNFT(), buyNFT()) thanks to biconomy (only the marketplace itself and not NFT contract is currently gasless, because of the nature of my contract setup only the second transaction you need to accept for minting, etc... will be gasless (you still have to pay 0.002 eth fee to the contract to the owner when minting))
 

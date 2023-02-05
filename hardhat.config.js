@@ -14,6 +14,7 @@ const {
   COINMARKETCAP_API_KEY,
   APP_RINKEBY_ENDPOINT,
   APP_GOERLI_ENDPOINT,
+  APP_MantleTestnet_ENDPOINT,
 } = process.env;
 // eslint-disable-next-line
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
@@ -40,6 +41,11 @@ module.exports = {
     goerli: {
       chainId: 5,
       url: APP_GOERLI_ENDPOINT,
+      accounts: [APP_PRIVATE_KEY],
+    },
+    mantleTestnet: {
+      chainId: 5001,
+      url: APP_MantleTestnet_ENDPOINT,
       accounts: [APP_PRIVATE_KEY],
     },
   },
