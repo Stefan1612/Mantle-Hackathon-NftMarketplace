@@ -62,7 +62,7 @@ const MintForm = (props) => {
             <Input type="file" name="Asset" onChange={props.onChange} />
             <br></br>
             <br></br>
-            {props.networkChain.chainId !== 5 && props.instance && (
+            {props.networkChain.chainId !== 5001 && props.instance && (
               <Box>
                 <Typography>
                   Hey! You are not connected to Goerli. You need to be on the
@@ -77,7 +77,7 @@ const MintForm = (props) => {
               </Box>
             )}
 
-            {props.networkChain.chainId === 5 && props.instance && (
+            {props.networkChain.chainId === 5001 && props.instance && (
               <Box>
                 <Button
                   variant={"contained"}

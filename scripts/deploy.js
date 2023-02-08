@@ -14,7 +14,7 @@ let NFTMarketplaceAddressV2 = "";
 
 // Biconomy GOERLI forwarder address to enable native meta transactions
 
-const forwarderAddress = "0xE041608922d06a4F26C0d4c27d8bCD01daf1f792";
+/* const forwarderAddress = "0xE041608922d06a4F26C0d4c27d8bCD01daf1f792"; */
 
 async function deploy(contractName, args = []) {
   const { chainId } = network.config;
@@ -56,9 +56,9 @@ async function main() {
   await deploy("NftMarketPlaceV2", [
     DutchAuctionFactoryaddress,
     EngAuctionFactoryaddress,
-    forwarderAddress,
+    /* forwarderAddress, */
   ]);
-  await deploy("NFTV2", [NFTMarketplaceAddressV2, forwarderAddress]);
+  await deploy("NFTV2", [NFTMarketplaceAddressV2 /* , forwarderAddress */]);
   console.log(NftAddressV2);
 }
 

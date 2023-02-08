@@ -11,7 +11,10 @@ import { Box, ThemeProvider, Button } from "@mui/material";
 
 // Web3Modal (metamask... connection)
 
-import Web3Modal from "web3modal";
+import Web3Modal, {
+  PROVIDER_DESCRIPTION_CLASSNAME,
+  PROVIDER_NAME_CLASSNAME,
+} from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
 /* import Walletlink from "walletlink"; */
@@ -97,7 +100,7 @@ function App() {
         appName: "Marketplace", // Required - random APP name
         infuraId: process.env.REACT_APP_PORJECT_ID, // Required
         rpc: "", // Optional if `infuraId` is provided; otherwise it's required
-        chainId: 5, // Optional. It defaults to 1 if not provided
+        chainId: 5001, // Optional. It defaults to 1 if not provided
         darkMode: false, // Optional. Use dark theme, defaults to false
       },
     },
@@ -105,7 +108,7 @@ function App() {
 
   // setting web3Modal with our prior declared possible provider Options
   const web3Modal = new Web3Modal({
-    network: "goerli",
+    network: "Mantle Testnet",
     theme: "dark", // optional
     cacheProvider: true,
     providerOptions,
@@ -125,43 +128,46 @@ function App() {
   const [signer, setSigner] = useState();
   const [provider, setProvider] = useState();
 
-  // infuraProvider - used to load data from the blockchain, no matter if user connected wallet
+  // used to load data from the blockchain, no matter if user connected wallet or not
+  // mantle testnet json Provider
 
-  const infuraProvider = new ethers.providers.InfuraProvider("goerli", {
-    projectId: process.env.REACT_APP_PROJECT_ID,
-    projectSecret: process.env.REACT_APP_PROJECT_SECRET,
-  });
+  // To connect to a custom URL:
+  let customHttpsProvider = new ethers.providers.JsonRpcProvider(
+    "https://rpc.testnet.mantle.xyz"
+  );
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // market
   const eventContractMarket = new ethers.Contract(
-    ContractAddress[5].NftMarketPlaceV2,
+    ContractAddress[5001].NftMarketPlaceV2,
     NftMarketPlace.abi,
     //infuraProvider //
-    provider
+    customHttpsProvider
   );
   //nft
   const eventContractNFT = new ethers.Contract(
-    ContractAddress[5].NFTV2,
+    ContractAddress[5001].NFTV2,
     NFT.abi,
     //infuraProvider //
-    provider
+    customHttpsProvider
   );
   const eventContractMarketInfura = new ethers.Contract(
-    ContractAddress[5].NftMarketPlaceV2,
+    ContractAddress[5001].NftMarketPlaceV2,
     NftMarketPlace.abi,
-    infuraProvider
+    // infuraProvider
+    customHttpsProvider
   );
   const eventContractNFTInfura = new ethers.Contract(
-    ContractAddress[5].NFTV2,
+    ContractAddress[5001].NFTV2,
     NFT.abi,
-    infuraProvider
+    // infuraProvider
+    customHttpsProvider
   );
   //signer calls
   //market
   const signerContractMarket = new ethers.Contract(
-    ContractAddress[5].NftMarketPlaceV2,
+    ContractAddress[5001].NftMarketPlaceV2,
     NftMarketPlace.abi,
     signer
   );
@@ -330,18 +336,21 @@ function App() {
 
   async function handleChainChanged(chainId) {
     /* console.log(chainId); */
+    console.log(`${chainId} : handleChainChanged - ChainID`);
   }
 
   // handles user changed network ([goerli -> mainnet] e.g.)
   // saving network name and ID ([goerli; 5] e.g.)
   async function handleNetworkChanged(networkId) {
     /* console.log(networkId); */
+    console.log(`${networkId} : handleNetworkChanged - networkId`);
     switch (networkId) {
       case "4":
         setNetwork({
           chainId: 4,
           name: "rinkeby",
         });
+        window.alert("change Network to MantleTestnet!");
         break;
 
       case "1":
@@ -349,6 +358,7 @@ function App() {
           chainId: 1,
           name: "mainnet",
         });
+        window.alert("change Network to MantleTestnet!");
         break;
 
       case "5":
@@ -363,11 +373,19 @@ function App() {
           chainId: "5",
           name: "goerli",
         }); */
+        window.alert("change Network to MantleTestnet!");
         break;
       case "42":
         setNetwork({
           chainId: 42,
           name: "kovan",
+        });
+        window.alert("change Network to MantleTestnet!");
+        break;
+      case "5001":
+        setNetwork({
+          chainId: 5001,
+          name: "mantleTestnet",
         });
         break;
 
@@ -376,7 +394,7 @@ function App() {
           chainId: "",
           name: "",
         });
-        window.alert("change Network to Goerli!");
+        window.alert("change Network to MantleTestnet!");
         console.log(`Wrong network ${networkId}`);
     }
   }
@@ -443,62 +461,70 @@ function App() {
   // -----------------------------------
 
   useEffect(() => {
-    eventContractNFTInfura.on(
-      "marketItemCreated",
-      (nftContractAddress, tokenId, price, onSale, owner, seller, minter) => {
-        /*   if (minter === account) { */
-
-        loadMintedNFTs();
-
-        /*  } */
-        console.log("marketItemCreated " + tokenId + " " + price);
-      }
-    );
-
-    eventContractMarketInfura.on(
-      "marketItemOnSale",
-      (nftContractAddress, tokenId, price, onSale, owner, seller) => {
-        loadOnSaleNFTs();
-        console.log("market item for sale " + tokenId + " " + price);
-      }
-    );
-
-    eventContractMarketInfura.on(
-      "marketItemBought",
-      (nftContractAddress, tokenId, price, onSale, owner, seller) => {
-        loadOwnNFTs();
-        console.log("market item bought " + tokenId + " " + price);
-      }
-    );
-
-    //removing all old event Listeners
-    return () => {
-      eventContractNFTInfura.removeListener(
+    if (isProviderSet) {
+      eventContractNFTInfura.on(
         "marketItemCreated",
         (nftContractAddress, tokenId, price, onSale, owner, seller, minter) => {
-          /*  if (minter === account) { */
+          /*   if (minter === account) { */
 
           loadMintedNFTs();
 
-          /*    } */
+          /*  } */
           console.log("marketItemCreated " + tokenId + " " + price);
         }
       );
-      eventContractMarketInfura.removeListener(
+
+      eventContractMarketInfura.on(
         "marketItemOnSale",
         (nftContractAddress, tokenId, price, onSale, owner, seller) => {
           loadOnSaleNFTs();
           console.log("market item for sale " + tokenId + " " + price);
         }
       );
-      eventContractMarketInfura.removeListener(
+
+      eventContractMarketInfura.on(
         "marketItemBought",
         (nftContractAddress, tokenId, price, onSale, owner, seller) => {
           loadOwnNFTs();
           console.log("market item bought " + tokenId + " " + price);
         }
       );
-    }; // eslint-disable-next-line react-hooks/exhaustive-deps
+
+      //removing all old event Listeners
+      return () => {
+        eventContractNFTInfura.removeListener(
+          "marketItemCreated",
+          (
+            nftContractAddress,
+            tokenId,
+            price,
+            onSale,
+            owner,
+            seller,
+            minter
+          ) => {
+            loadMintedNFTs();
+
+            console.log("marketItemCreated " + tokenId + " " + price);
+          }
+        );
+
+        eventContractMarketInfura.removeListener(
+          "marketItemOnSale",
+          (nftContractAddress, tokenId, price, onSale, owner, seller) => {
+            loadOnSaleNFTs();
+            console.log("market item for sale " + tokenId + " " + price);
+          }
+        );
+        eventContractMarketInfura.removeListener(
+          "marketItemBought",
+          (nftContractAddress, tokenId, price, onSale, owner, seller) => {
+            loadOwnNFTs();
+            console.log("market item bought " + tokenId + " " + price);
+          }
+        );
+      };
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -509,6 +535,7 @@ function App() {
     const tokenData = await Promise.all(
       data.map(async (index) => {
         //getting the TokenURI using the erc721uri method from our nft contract
+
         const tokenUri = await eventContractNFT.tokenURI(index.tokenId);
 
         //getting the metadata of the nft using the URI
@@ -534,7 +561,7 @@ function App() {
   }
 
   async function loadOwnNFTs() {
-    if (isProviderSet /* instance */ && network.chainId === 5) {
+    if (isProviderSet /* instance */ && network.chainId === 5001) {
       let data = await signerContractMarket.fetchAllMyTokens();
       console.log(data);
       let tokenData = await axiosGetTokenData(data);
@@ -547,47 +574,50 @@ function App() {
 
   async function loadOnSaleNFTs() {
     /*  if (network.chainId === 5) { */
-    try {
-      let data = await eventContractMarketInfura.fetchAllTokensOnSale();
+    if (isProviderSet && network.chainId === 5001) {
+      try {
+        let data = await eventContractMarketInfura.fetchAllTokensOnSale();
 
-      const tokenData = await Promise.all(
-        data.map(async (index) => {
-          //getting the TokenURI using the erc721uri method from our nft contract
-          let tokenID = index.tokenId;
-          const tokenUri = await eventContractNFTInfura.tokenURI(
-            tokenID.toNumber()
-          );
+        const tokenData = await Promise.all(
+          data.map(async (index) => {
+            //getting the TokenURI using the erc721uri method from our nft contract
+            let tokenID = index.tokenId;
 
-          //getting the metadata of the nft using the URI
-          const meta = await axios.get(tokenUri);
+            const tokenUri = await eventContractNFTInfura.tokenURI(
+              tokenID.toNumber()
+            );
 
-          let nftData = {
-            tokenId: index.tokenId,
-            price: ethers.utils.formatUnits(index.price.toString(), "ether"),
-            onSale: index.onSale,
-            seller: index.seller,
-            image: meta.data.image,
-            name: meta.data.name,
-            description: meta.data.description,
-          };
-          console.log(nftData);
-          return nftData;
-        })
-      );
-      setOnSaleNFTs(tokenData);
-    } catch (error) {
-      console.log(error);
+            //getting the metadata of the nft using the URI
+            const meta = await axios.get(tokenUri);
+
+            let nftData = {
+              tokenId: index.tokenId,
+              price: ethers.utils.formatUnits(index.price.toString(), "ether"),
+              onSale: index.onSale,
+              seller: index.seller,
+              image: meta.data.image,
+              name: meta.data.name,
+              description: meta.data.description,
+            };
+            console.log(nftData);
+            return nftData;
+          })
+        );
+        setOnSaleNFTs(tokenData);
+      } catch (error) {
+        console.log(error);
+      }
+      /*  } */
     }
-    /*  } */
   }
 
   const [mintedNFTs, setMintedNFTs] = useState([]);
 
   async function loadMintedNFTs() {
-    if (isProviderSet /* instance */ && network.chainId === 5) {
+    if (isProviderSet /* instance */ && network.chainId === 5001) {
       console.log("load Minted NFTS");
       const signerContractNFT = new ethers.Contract(
-        ContractAddress[5].NFTV2,
+        ContractAddress[5001].NFTV2,
         NFT.abi,
         signer
       );
@@ -596,6 +626,7 @@ function App() {
       const tokenData = await Promise.all(
         data.map(async (index) => {
           //getting the TokenURI using the erc721uri method from our nft contract
+
           const tokenUri = await eventContractNFT.tokenURI(index);
 
           //getting the metadata of the nft using the URI
@@ -630,7 +661,7 @@ function App() {
     price = ethers.utils.parseEther(price);
     /* let tx = */ await signerContractMarket.buyMarketToken(
       id,
-      /*  ContractAddress[5].NFT, */
+      /*  ContractAddress[5001].NFT, */
       {
         value: price,
       }
@@ -643,37 +674,27 @@ function App() {
   async function sellNFT(marketItem) {
     const signer = provider.getSigner();
     let contract = new ethers.Contract(
-      ContractAddress[5].NftMarketPlaceV2,
+      ContractAddress[5001].NftMarketPlaceV2,
       NftMarketPlace.abi,
       signer
     );
     const nftContract = new ethers.Contract(
-      ContractAddress[5].NFTV2,
+      ContractAddress[5001].NFTV2,
       NFT.abi,
       signer
     );
     let id = marketItem.tokenId;
     id = id.toNumber();
     await nftContract.setApprovalForAll(
-      ContractAddress[5].NftMarketPlaceV2,
+      ContractAddress[5001].NftMarketPlaceV2,
       true
     );
     /* let tx = */ await contract.sellMarketToken(
       id,
       previewPriceTwo /* ,
-      ContractAddress[5].NFT */
+      ContractAddress[5001].NFT */
     );
   }
-
-  /* const [newNftAddress, setNewNftAddress] = useState();
-
-  let nftAddressChange;
-
-  const handleChangeNftAddress = (e) => {
-    nftAddressChange = e.target.value;
-    setNewNftAddress(nftAddressChange);
-    console.log(nftAddressChange);
-  }; */
 
   const [previewPriceTwo, setPreviewPriceTwo] = useState({});
 
@@ -755,7 +776,7 @@ function App() {
     }
   }
 
-  //creating the NFT(first mint at ContractAddress[5].NftMarketPlace, second create market Token at market address)
+  //creating the NFT(first mint at ContractAddress[5001].NftMarketPlace, second create market Token at market address)
   async function mintNFT(url) {
     //make sure the user connected his wallet
     if (checkIfUserLoggedIn()) {
@@ -765,7 +786,7 @@ function App() {
         listingPrice = listingPrice.toString();
 
         let contract = new ethers.Contract(
-          ContractAddress[5].NFTV2,
+          ContractAddress[5001].NFTV2,
           NFT.abi,
           signer
         );
@@ -790,14 +811,14 @@ function App() {
 
   function changeNetworkToGoerli() {
     if (provider) {
-      if (network.chainId === 5) {
-        window.alert("already connected to Goerli!");
+      if (network.chainId === 5001) {
+        window.alert("already connected to Mantle!");
       } else {
         instance.request({
           /* method: "wallet_addEthereumChain", */
           method: "wallet_switchEthereumChain",
           params: [
-            { chainId: "0x5" },
+            { chainId: "0x1389" },
             /*  {
               chainId: "0x5",
               rpcUrls: [
@@ -830,7 +851,7 @@ function App() {
 
   /// check if user is connected to the correct network(where NFT-marketplace/Nft contracts/... are deployed)
   function checkIfUserConnectedToCorrectNetwork() {
-    if (network.chainId === 5) {
+    if (network.chainId === 5001) {
       return true;
     }
   }
@@ -865,6 +886,8 @@ function App() {
                 buyNFT={buyNFT}
                 connectWallet={connectWallet}
                 changeNetworkToGoerli={changeNetworkToGoerli}
+                network={network}
+                instance={instance}
               />
             }
           />
@@ -929,7 +952,7 @@ function App() {
             path="/NftHistory"
             element={
               <NftHistory
-                infuraProvider={infuraProvider}
+                infuraProvider={/* infuraProvider */ provider}
                 account={account}
                 checkIfUserConnectedToCorrectNetwork={
                   checkIfUserConnectedToCorrectNetwork

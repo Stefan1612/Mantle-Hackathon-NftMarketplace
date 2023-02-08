@@ -31,7 +31,7 @@ const OwnNfts = (props) => {
               <i className="fas fa-cat"></i>
             </form>
             <Typography
-              Component={"h2"}
+              component={"h2"}
               variant={"h1"}
               align="center"
               color={"secondary"}
@@ -52,7 +52,7 @@ const OwnNfts = (props) => {
                 </Button>
               </Box>
             )}
-            {props.network.chainId !== 5 && props.instance && (
+            {props.network.chainId !== 5001 && props.instance && (
               <Box sx={{ textAlign: "center" }}>
                 <Typography variant={"h2"} component={"h2"}>
                   Wrong network
@@ -65,7 +65,7 @@ const OwnNfts = (props) => {
                 </Button>
               </Box>
             )}
-            {props.network.chainId === 5 && props.instance && (
+            {props.network.chainId === 5001 && props.instance && (
               <Box sx={{ textAlign: "center", marginTop: "6vh" }}>
                 <Button
                   onClick={(e) => props.loadOwnNFTs()}
@@ -145,7 +145,7 @@ const OwnNfts = (props) => {
               ) */
             )}
             {props.ownNFTs.length === 0 &&
-              props.network.chainId === 5 &&
+              props.network.chainId === 5001 &&
               props.instance && (
                 <h1 className="text-center " style={{ marginTop: "4vh" }}>
                   You don't own any NFTs currently!
