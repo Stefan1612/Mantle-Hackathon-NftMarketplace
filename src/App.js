@@ -142,26 +142,26 @@ function App() {
   const eventContractMarket = new ethers.Contract(
     ContractAddress[5001].NftMarketPlaceV2,
     NftMarketPlace.abi,
-    //infuraProvider //
+
     customHttpsProvider
   );
   //nft
   const eventContractNFT = new ethers.Contract(
     ContractAddress[5001].NFTV2,
     NFT.abi,
-    //infuraProvider //
+
     customHttpsProvider
   );
   const eventContractMarketInfura = new ethers.Contract(
     ContractAddress[5001].NftMarketPlaceV2,
     NftMarketPlace.abi,
-    // infuraProvider
+
     customHttpsProvider
   );
   const eventContractNFTInfura = new ethers.Contract(
     ContractAddress[5001].NFTV2,
     NFT.abi,
-    // infuraProvider
+
     customHttpsProvider
   );
   //signer calls

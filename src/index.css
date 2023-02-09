@@ -35,3 +35,11 @@ a:active {
     background-position: 0% 50%;
   }
 }
+
+/* .crop img {
+  width: 25vw;
+  height: 25vh;
+} */
+.img1 {
+  aspect-ratio: 1;
+}

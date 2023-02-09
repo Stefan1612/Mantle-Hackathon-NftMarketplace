@@ -14,9 +14,9 @@ The Website is online and running at [Website]()
 
 3. npm start
 
-4. npx hardhat console --network goerli
+4. npx hardhat console --network mantleTestnet
 
-5. npx hardhat run scripts/deploy.js --network goerli
+5. npx hardhat run scripts/deploy.js --network mantleTestnet
 
 6. const contract = await ethers.getContractFactory("NftMarketPlaceV2")
 
@@ -28,19 +28,10 @@ The Website is online and running at [Website]()
 
 ## Approach
 
-Running currently on Goerli
-A NFT Marketplace running currently on Goerli. Let's you mint, sell and buy NFT's. During the minting we store the Metadata on IPFS and only store the TokenURI on-chain.
+Running currently on the Mantle Testnet
+A NFT Marketplace running currently on the Mantle Testnet. Let's you mint, sell and buy NFT's. During the minting we store the Metadata on IPFS and only store the TokenURI on-chain.
 
 ## Stack
-
-"@transak/transak-sdk": "^1.0.31",
-"@walletconnect/web3-provider": "^1.8.0",
-"authereum": "^0.1.14",
-"axios": "^0.24.0",
-"gh-pages": "^3.2.3",
-"ipfs-http-client": "^55.0.0",
-"walletlink": "^2.5.0",
-"web3modal": "^1.9.9"
 
 ### Blockchain Technologies
 
@@ -53,9 +44,9 @@ A NFT Marketplace running currently on Goerli. Let's you mint, sell and buy NFT'
 
 ### Demo videos:
 
-NFT Marketplace: hhttps://www.youtube.com/watch?v=zYdKS_B3RJo
+NFT Marketplace: (make updated version)
 
-### Gasless Transactions (currently still working out how to connect this with mantle, if I even can)
+### Gasless Transactions (there is no need for this anymore due to the low gas fees on the layer-2 solution Mantle)
 
 This NFT allows party gasless NFT minting,selling and buying (mintNFT(), sellNFT(), buyNFT()) thanks to biconomy (only the marketplace itself and not NFT contract is currently gasless, because of the nature of my contract setup only the second transaction you need to accept for minting, etc... will be gasless (you still have to pay 0.002 eth fee to the contract to the owner when minting))
 
@@ -81,3 +72,9 @@ And all contracts modified accordingly: [Code]()
 
 - Handling Allowance
 - IPFS upload
+
+## To-do's
+
+- eventlistener are not picking up events (even metamask doesn't response after successful tx, why?)
+- switch network to Mantletestnet function SOMETIMES bugs out and crashes website ?
+- safe login data and web3modal instance, provider in local storage

@@ -31,68 +31,71 @@ const Home = (props) => {
               NFT's for sale
             </Typography>
 
-            {props.network.chainId === 5001 &&
-              props.instance &&
+            {
+              /* props.network.chainId === 5001 &&
+              props.instance && */
               props.onSaleNFTs.length === 0 && (
                 <h1 className="text-center " style={{ marginTop: "4vh" }}>
                   There are currently no Tokens up for sale
                 </h1>
-              )}
+              )
+            }
             <br></br>
             <div
               className="col-md-10 offset-md-1 "
               style={{ marginTop: "6vh" }}
             >
               <Container>
-                {props.network.chainId === 5001 && props.instance && (
-                  <Box>
-                    <Grid container spacing={4}>
-                      {props.onSaleNFTs.map((index) => {
-                        return (
-                          <Grid item xs={4} key={index.tokenId}>
-                            <Paper elevation={24}>
-                              <Box padding={1.5}>
-                                <img
-                                  width={"258vw"}
-                                  height={"258vh"}
-                                  alt="NFT"
-                                  src={index.image}
-                                ></img>
+                {/*  {props.network.chainId === 5001 && props.instance && ( */}
+                <Box>
+                  <Grid container spacing={4}>
+                    {props.onSaleNFTs.map((index) => {
+                      return (
+                        <Grid item xs={4} key={index.tokenId}>
+                          <Paper elevation={24}>
+                            <Box padding={1.5}>
+                              <img
+                                className="img1"
+                                width={"258vw"}
+                                height={"258vw"}
+                                alt="NFT"
+                                src={index.image}
+                              ></img>
 
-                                <Typography component={"p"} variant={"h2"}>
-                                  {index.name}
-                                </Typography>
-                                <Typography
-                                  paddingBottom={"6vh"}
-                                  variant={"body2"}
-                                  component={"p"}
-                                >
-                                  {index.description}
-                                </Typography>
+                              <Typography component={"p"} variant={"h2"}>
+                                {index.name}
+                              </Typography>
+                              <Typography
+                                paddingBottom={"6vh"}
+                                variant={"body2"}
+                                component={"p"}
+                              >
+                                {index.description}
+                              </Typography>
 
-                                <Typography component={"p"} variant={"h3"}>
-                                  {index.price} (in Bit)
-                                </Typography>
-                                <Typography style={{ color: "white" }}>
-                                  Current Seller: &nbsp;
-                                  {index.seller.substring(0, 5) +
-                                    "..." +
-                                    index.seller.substring(38)}
-                                </Typography>
-                                <Button
-                                  variant={"outlined"}
-                                  onClick={() => props.buyNFT(index)}
-                                >
-                                  Buy NFT
-                                </Button>
-                              </Box>
-                            </Paper>
-                          </Grid>
-                        );
-                      })}
-                    </Grid>
-                  </Box>
-                )}
+                              <Typography component={"p"} variant={"h3"}>
+                                {index.price} (in Bit)
+                              </Typography>
+                              <Typography style={{ color: "white" }}>
+                                Current Seller: &nbsp;
+                                {index.seller.substring(0, 5) +
+                                  "..." +
+                                  index.seller.substring(38)}
+                              </Typography>
+                              <Button
+                                variant={"outlined"}
+                                onClick={() => props.buyNFT(index)}
+                              >
+                                Buy NFT
+                              </Button>
+                            </Box>
+                          </Paper>
+                        </Grid>
+                      );
+                    })}
+                  </Grid>
+                </Box>
+                {/*  )} */}
               </Container>
             </div>
           </Box>

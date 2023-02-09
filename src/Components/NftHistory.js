@@ -26,13 +26,13 @@ const NftHistory = ({
     if (checkIfUserLoggedIn()) {
       //make sure the user is connected to the correct network
       if (checkIfUserConnectedToCorrectNetwork()) {
-        const url = `https://api.covalenthq.com/v1/5/address/${account}/transfers_v2/?contract-address=${ContractAddress[5].NFTV2}&key=${process.env.REACT_APP_COVALENT_API_KEY}`;
+        const url = `https://api.covalenthq.com/v1/5/address/${account}/transfers_v2/?contract-address=${ContractAddress[5001].NFTV2}&key=${process.env.REACT_APP_COVALENT_API_KEY}`;
         let result = await axios.get(url);
         console.log(result);
         setTransferHistory(result);
         console.log("first");
       } else {
-        window.alert("Change to the Goerli network");
+        window.alert("Change to the Mantle network");
       }
     } else {
       window.alert("You need to connect your wallet first");
@@ -51,8 +51,8 @@ const NftHistory = ({
     console.log("show transactionType ran");
     if (index.transfers[0].transfer_type === "IN") {
       console.log(index.to_address);
-      let address = ContractAddress[5].NFTV2;
-      console.log(ContractAddress[5].NFTV2);
+      let address = ContractAddress[5001].NFTV2;
+      console.log(ContractAddress[5001].NFTV2);
       if (index.to_address === address.toLowerCase()) {
         return "Token Minted";
       }
@@ -88,7 +88,7 @@ const NftHistory = ({
     // saves all transaction objects in order "newest -> oldest"
 
     const contractNFTInfura = new ethers.Contract(
-      ContractAddress[5].NFTV2,
+      ContractAddress[5001].NFTV2,
       NFT.abi,
       infuraProvider
     );
@@ -150,6 +150,12 @@ const NftHistory = ({
           <Typography variant={"h3"} sx={{ color: "black" }}>
             Transfers
           </Typography>
+          <Box>
+            <Typography>
+              Note: Fetching the NFT transfer history is currently done with
+              Covalent, Covalent doesn't support the Mantle network yet.
+            </Typography>
+          </Box>
         </Box>
         {/* <Button onClick={(e) => getCovalentBalance()}>Get balance</Button> */}
         <Box
