@@ -59,10 +59,12 @@ const Transak = () => {
         >
           <Box marginTop={"5vh"}>
             <Typography component={"h1"} variant={"h2"} sx={{ color: "white" }}>
-              Want to buy your favourite Crypto Currency?
+              {/* Want to buy your favourite Crypto Currency? */} Currently in
+              process! (Easy One click solution for buying your favourite
+              Cryptocurrencies in one click)
             </Typography>
           </Box>{" "}
-          <Box>
+          {/*    <Box>
             <Typography component={"p"} variant={"h5"} sx={{ color: "white" }}>
               You can easily buy yourself some crypto with One Click using
               Transak.
@@ -83,7 +85,7 @@ const Transak = () => {
           >
             Open transak
           </Button>
-          {transakSucceed && <Box>Succeed</Box>}
+          {transakSucceed && <Box>Succeed</Box>} */}
         </Box>
       </Container>
     </Box>

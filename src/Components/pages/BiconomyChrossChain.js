@@ -17,7 +17,7 @@ const CrossChainTransfer = (props) => {
       document.getElementById("widget"),
       {
         tag: "expecto-patronum",
-        showWidget: true,
+        showWidget: false,
         showCloseButton: true,
       }
     );
@@ -54,12 +54,6 @@ const CrossChainTransfer = (props) => {
           Cross Chain Transfer
         </Typography>
       </Box>
-      {/* <Button
-        sx={{ backgroundColor: "red" }}
-        onClick={() => props.setUpBiconomy()}
-      >
-        setUpBiconomy
-      </Button> */}
 
       <Container>
         <Box paddingTop={"5vh"} marginBottom={"5vh"}>
@@ -83,25 +77,40 @@ const CrossChainTransfer = (props) => {
             >
               <Container>
                 <Box>
-                  {" "}
+                  <Box sx={{ color: "white" }}>
+                    <Typography>
+                      Note: The bridge featuring transactions from ethereum to
+                      the Mantle Network is currently being worked on!
+                    </Typography>
+                  </Box>
+                  <Box sx={{ color: "white" }}>
+                    <Typography>
+                      Currently this Marketplace only features a bridge
+                      featuring the more "regular" networks
+                    </Typography>
+                  </Box>{" "}
+                  <Box sx={{ border: "solid", marginTop: "10vh" }}>
+                    <Typography>Bridge (not featuring mantle)</Typography>
+                    <Button
+                      variant="contained"
+                      sx={{ backgroundColor: "white" }}
+                      onClick={handleOpen}
+                    >
+                      Open Widget
+                    </Button>
+                    &nbsp; &nbsp;
+                    <Button
+                      variant="contained"
+                      sx={{ backgroundColor: "white" }}
+                      onClick={handleClose}
+                    >
+                      Close Widget
+                    </Button>
+                  </Box>
+                  <br></br>
                   <div class="widget-container">
                     <div id="widget"></div>
                   </div>
-                  <Button
-                    variant="contained"
-                    sx={{ backgroundColor: "white" }}
-                    onClick={handleOpen}
-                  >
-                    Open Widget
-                  </Button>
-                  &nbsp; &nbsp;
-                  <Button
-                    variant="contained"
-                    sx={{ backgroundColor: "white" }}
-                    onClick={handleClose}
-                  >
-                    Close Widget
-                  </Button>
                 </Box>
               </Container>
             </div>
