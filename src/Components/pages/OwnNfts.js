@@ -104,7 +104,7 @@ const OwnNfts = (props) => {
                                   </Typography>
 
                                   <Typography component={"p"} variant={"h3"}>
-                                    {index.price} Ether
+                                    {index.price} (in Bit)
                                   </Typography>
                                   {/* <Typography style={{ color: "white" }}>
                                 Current Seller: &nbsp;

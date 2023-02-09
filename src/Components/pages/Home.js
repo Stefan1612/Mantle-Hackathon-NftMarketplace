@@ -31,7 +31,7 @@ const Home = (props) => {
               NFT's for sale
             </Typography>
 
-            {props.network.chainId === 5 &&
+            {props.network.chainId === 5001 &&
               props.instance &&
               props.onSaleNFTs.length === 0 && (
                 <h1 className="text-center " style={{ marginTop: "4vh" }}>
@@ -44,7 +44,7 @@ const Home = (props) => {
               style={{ marginTop: "6vh" }}
             >
               <Container>
-                {props.network.chainId === 5 && props.instance && (
+                {props.network.chainId === 5001 && props.instance && (
                   <Box>
                     <Grid container spacing={4}>
                       {props.onSaleNFTs.map((index) => {
@@ -71,7 +71,7 @@ const Home = (props) => {
                                 </Typography>
 
                                 <Typography component={"p"} variant={"h3"}>
-                                  {index.price} Ether
+                                  {index.price} (in Bit)
                                 </Typography>
                                 <Typography style={{ color: "white" }}>
                                   Current Seller: &nbsp;

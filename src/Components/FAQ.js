@@ -16,6 +16,29 @@ export default function SimpleAccordion() {
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel3a-content"
+          id="panel3a-header"
+        >
+          <Typography>What is the Mantle Network?</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            If you know what polygon is and what the idea of creating polygon
+            was, you already know a lot about the Mantle Network. Mantle is just
+            like polygon a layer-2 solution for the Ethereum chain and is EVM
+            compatible. The difference between polygon and the Mantle Network is
+            the way they are achieving the lower costs and therefore more
+            scalable alternative then the regular Ethereum blockchain. The
+            Mantle network is a optimistic Rollup while Polygon is a sidechain.
+            Those bring their own sets of benefits and if you are interested in
+            a more in-depth explanation, feel free to check their docs:
+            https://docs.mantle.xyz/introducing-mantle/a-gentle-introduction
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
           aria-controls="panel4a-content"
           id="panel4a-header"
         >
@@ -34,7 +57,10 @@ export default function SimpleAccordion() {
           <Typography>Are there any purchase/selling fees?</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>No, currently there are only fees for minting</Typography>
+          <Typography>
+            No, currently there are only fees for minting. The minting fee is
+            0.002 (in Bit){" "}
+          </Typography>
         </AccordionDetails>
       </Accordion>
       <Accordion>
@@ -81,8 +107,10 @@ export default function SimpleAccordion() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            The tokenURL gets stored on-Chain and the the metadata including the
-            image itself, get stored off-Chain on IPFS.
+            The tokenURL gets stored on-Chain, on the Mantle Testnet (a layer-2
+            solution - optimistic Rollup) and the metadata including the image
+            itself, get stored off-Chain on IPFS to reduce gas costs even
+            further.
           </Typography>
         </AccordionDetails>
       </Accordion>
