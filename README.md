@@ -31,6 +31,16 @@ The Website is online and running at [Website]()
 Running currently on the Mantle Testnet
 A NFT Marketplace running currently on the Mantle Testnet. Let's you mint, sell and buy NFT's. During the minting we store the Metadata on IPFS and only store the TokenURI on-chain.
 
+### In Process
+
+#### NFT Tx History (Used the covalent API, doesn't feature Mantle testnet yet)
+
+#### The ability to buy cryptocurrencies with fiat (using transak)
+
+#### Bridge (Currently using SDK Hyphen, doesn't feature Mantle testnet yet)
+
+Note: In the Mantle docs there is an API to easily integrate their bridge into this Marketplace in the future https://docs.mantle.xyz/tools-and-sdk/mantle-bridge-api
+
 ## Stack
 
 ### Blockchain Technologies
@@ -45,6 +55,17 @@ A NFT Marketplace running currently on the Mantle Testnet. Let's you mint, sell 
 ### Demo videos:
 
 NFT Marketplace: (make updated version)
+
+SKD Hyphen: https://www.youtube.com/watch?v=cViRhJu1qIM (this bridge doesn't feature the mantle network yet)
+
+### Hyphen Widget
+
+The Biconomy Hyphen Widget allows for fast and easy cross chain movement of funds. You can easily with a few clicks and seconds transfer your
+Tokens from one network to another
+
+Biconomy docs: https://docs.biconomy.io/products/hyphen-instant-cross-chain-transfers/hyphen-widget
+
+Added at: [Code]()
 
 ### Gasless Transactions (there is no need for this anymore due to the low gas fees on the layer-2 solution Mantle)
 
@@ -74,7 +95,3 @@ And all contracts modified accordingly: [Code]()
 - IPFS upload
 
 ## To-do's
-
-- eventlistener are not picking up events (even metamask doesn't response after successful tx, why?)
-- switch network to Mantletestnet function SOMETIMES bugs out and crashes website ?
-- safe login data and web3modal instance, provider in local storage

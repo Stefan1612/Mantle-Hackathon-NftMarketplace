@@ -73,14 +73,14 @@ const MintForm = (props) => {
                   {props.networkChain.chainId !== 5001 && props.instance && (
                     <Box>
                       <Typography>
-                        Hey! You are not connected to Goerli. You need to be on
-                        the Goerli network! Change network here:
+                        Hey! You are not connected to Mantle. You need to be on
+                        the Mantle network! Change network here:
                       </Typography>
                       <Button
                         variant="outlined"
-                        onClick={(e) => props.changeNetworkToGoerli()}
+                        onClick={(e) => props.changeNetworkToMantle()}
                       >
-                        Switch to Goerli!
+                        Switch to Mantle!
                       </Button>
                     </Box>
                   )}

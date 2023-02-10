@@ -59,9 +59,9 @@ const OwnNfts = (props) => {
                 </Typography>
                 <Button
                   variant={"outlined"}
-                  onClick={(e) => props.changeNetworkToGoerli(e)}
+                  onClick={(e) => props.changeNetworkToMantle(e)}
                 >
-                  Connect to Goerli!
+                  Connect to Mantle!
                 </Button>
               </Box>
             )}
@@ -120,6 +120,7 @@ const OwnNfts = (props) => {
                                   <Button
                                     variant={"outlined"}
                                     onClick={() => props.sellNFT(index)}
+                                    type="number"
                                   >
                                     Sell
                                   </Button>

@@ -66,6 +66,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 // general theme set for our UI
 import theme from "./Components/theme/theme";
+import { PreviewSharp } from "@mui/icons-material";
 
 function App() {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -236,7 +237,7 @@ function App() {
       setInstance(instance_M);
 
       // getting provider through web3modal instance
-      const provider_M = new ethers.providers.Web3Provider(instance_M);
+      const provider_M = new ethers.providers.Web3Provider(instance_M, "any");
 
       // getting signer and saving current provider
       let signer_M = provider_M.getSigner();
@@ -574,41 +575,41 @@ function App() {
 
   async function loadOnSaleNFTs() {
     /*  if (network.chainId === 5) { */
-    if (isProviderSet && network.chainId === 5001) {
-      try {
-        let data = await eventContractMarketInfura.fetchAllTokensOnSale();
+    /* if (isProviderSet && network.chainId === 5001) { */
+    try {
+      let data = await eventContractMarketInfura.fetchAllTokensOnSale();
 
-        const tokenData = await Promise.all(
-          data.map(async (index) => {
-            //getting the TokenURI using the erc721uri method from our nft contract
-            let tokenID = index.tokenId;
+      const tokenData = await Promise.all(
+        data.map(async (index) => {
+          //getting the TokenURI using the erc721uri method from our nft contract
+          let tokenID = index.tokenId;
 
-            const tokenUri = await eventContractNFTInfura.tokenURI(
-              tokenID.toNumber()
-            );
+          const tokenUri = await eventContractNFTInfura.tokenURI(
+            tokenID.toNumber()
+          );
 
-            //getting the metadata of the nft using the URI
-            const meta = await axios.get(tokenUri);
+          //getting the metadata of the nft using the URI
+          const meta = await axios.get(tokenUri);
 
-            let nftData = {
-              tokenId: index.tokenId,
-              price: ethers.utils.formatUnits(index.price.toString(), "ether"),
-              onSale: index.onSale,
-              seller: index.seller,
-              image: meta.data.image,
-              name: meta.data.name,
-              description: meta.data.description,
-            };
-            console.log(nftData);
-            return nftData;
-          })
-        );
-        setOnSaleNFTs(tokenData);
-      } catch (error) {
-        console.log(error);
-      }
-      /*  } */
+          let nftData = {
+            tokenId: index.tokenId,
+            price: ethers.utils.formatUnits(index.price.toString(), "ether"),
+            onSale: index.onSale,
+            seller: index.seller,
+            image: meta.data.image,
+            name: meta.data.name,
+            description: meta.data.description,
+          };
+          console.log(nftData);
+          return nftData;
+        })
+      );
+      setOnSaleNFTs(tokenData);
+    } catch (error) {
+      console.log(error);
     }
+    /*  } */
+    /* } */
   }
 
   const [mintedNFTs, setMintedNFTs] = useState([]);
@@ -672,28 +673,33 @@ function App() {
   // only [0.]..works as intended
 
   async function sellNFT(marketItem) {
-    const signer = provider.getSigner();
-    let contract = new ethers.Contract(
-      ContractAddress[5001].NftMarketPlaceV2,
-      NftMarketPlace.abi,
-      signer
-    );
-    const nftContract = new ethers.Contract(
-      ContractAddress[5001].NFTV2,
-      NFT.abi,
-      signer
-    );
-    let id = marketItem.tokenId;
-    id = id.toNumber();
-    await nftContract.setApprovalForAll(
-      ContractAddress[5001].NftMarketPlaceV2,
-      true
-    );
-    /* let tx = */ await contract.sellMarketToken(
-      id,
-      previewPriceTwo /* ,
-      ContractAddress[5001].NFT */
-    );
+    console.log("check if previewPrice set");
+    console.log(previewPriceTwo);
+    if (previewPriceTwo) {
+      console.log("initiate selling nft");
+      const signer = provider.getSigner();
+      let contract = new ethers.Contract(
+        ContractAddress[5001].NftMarketPlaceV2,
+        NftMarketPlace.abi,
+        signer
+      );
+      const nftContract = new ethers.Contract(
+        ContractAddress[5001].NFTV2,
+        NFT.abi,
+        signer
+      );
+      let id = marketItem.tokenId;
+      id = id.toNumber();
+      await nftContract.setApprovalForAll(
+        ContractAddress[5001].NftMarketPlaceV2,
+        true
+      );
+      /* let tx = */ await contract.sellMarketToken(
+        id,
+        previewPriceTwo /* ,
+        ContractAddress[5001].NFT */
+      );
+    }
   }
 
   const [previewPriceTwo, setPreviewPriceTwo] = useState({});
@@ -704,11 +710,23 @@ function App() {
   //changing price from ether(user Input) into wei for contract
   const handleChangePrice = (e) => {
     previewPrice = e.target.value;
-    // you need to use dots instead of commas when using ether instead of wei
+
+    // if value is not blank, then test the regex
+    if (previewPrice === "") {
+      console.log("invalid price input");
+      return;
+    }
+
+    if (!Number(previewPrice)) {
+      window.alert('Only use numbers and/or a dot -> "."');
+      return;
+    }
+    console.log("setting price");
     previewPrice = previewPrice.toString();
     previewPrice = ethers.utils.parseEther(previewPrice);
     setPreviewPriceTwo(previewPrice);
     console.log(previewPriceTwo);
+    // you need to use dots instead of commas when using ether instead of wei
   };
 
   const projectId = process.env.REACT_APP_PORJECT_ID_IPFS; // <---------- your Infura Project ID
@@ -795,7 +813,7 @@ function App() {
           value: listingPrice,
         });
       } else {
-        window.alert("Change to the Goerli network");
+        window.alert("Change to the Mantle network");
       }
     } else {
       window.alert("You need to connect your wallet first");
@@ -809,7 +827,7 @@ function App() {
     setFormInput({ ...formInput, name: e.target.value });
   }
 
-  function changeNetworkToGoerli() {
+  function changeNetworkToMantle() {
     if (provider) {
       if (network.chainId === 5001) {
         window.alert("already connected to Mantle!");
@@ -885,9 +903,10 @@ function App() {
                 onSaleNFTs={onSaleNFTs}
                 buyNFT={buyNFT}
                 connectWallet={connectWallet}
-                changeNetworkToGoerli={changeNetworkToGoerli}
+                changeNetworkToMantle={changeNetworkToMantle}
                 network={network}
                 instance={instance}
+                loadOnSaleNFTs={loadOnSaleNFTs}
               />
             }
           />
@@ -903,7 +922,7 @@ function App() {
                 changeFormInputName={changeFormInputName}
                 fileURL={fileURL}
                 createMarket={createMarket}
-                changeNetworkToGoerli={changeNetworkToGoerli}
+                changeNetworkToMantle={changeNetworkToMantle}
                 networkChain={network}
                 connectWallet={connectWallet}
                 instance={instance}
@@ -920,7 +939,7 @@ function App() {
                 handleChangePrice={handleChangePrice}
                 loadOwnNFTs={loadOwnNFTs}
                 network={network}
-                changeNetworkToGoerli={changeNetworkToGoerli}
+                changeNetworkToMantle={changeNetworkToMantle}
                 instance={instance}
                 connectWallet={connectWallet}
               />
@@ -933,7 +952,7 @@ function App() {
             element={
               <MintedTokens
                 mintedNFTs={mintedNFTs}
-                changeNetworkToGoerli={changeNetworkToGoerli}
+                changeNetworkToMantle={changeNetworkToMantle}
                 network={network}
                 instance={instance}
                 connectWallet={connectWallet}

@@ -52,9 +52,9 @@ const MintedTokens = (props) => {
                 </Typography>
                 <Button
                   variant={"outlined"}
-                  onClick={(e) => props.changeNetworkToGoerli(e)}
+                  onClick={(e) => props.changeNetworkToMantle(e)}
                 >
-                  Connect to Goerli!
+                  Connect to Mantle!
                 </Button>
               </Box>
             )}
