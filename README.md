@@ -2,9 +2,21 @@
 
 ## Status
 
-The NFT Marketplace is currently running and fully functional on the Mantle Testnet
+The NFT Marketplace is currently running and functional on the Mantle Testnet
 
 The Website is online and running at [Website]()
+
+## Contract addresses
+
+Marketplace: https://explorer.testnet.mantle.xyz/address/0x97723054F8297f0D1fcFf062C40800299C25c464
+
+NFT: https://explorer.testnet.mantle.xyz/address/0x9381320117a3d703F526590969aFf1617A26baD6
+
+(Following contracts are not fully implemented yet but the prototypes are deployed)
+
+DutchAuctionFactory: https://explorer.testnet.mantle.xyz/address/0xCbF499Fc9E05443712cBFd530B65549dbBfbD23c
+
+EngAuctionFactory: https://explorer.testnet.mantle.xyz/address/0xec477096A919Ff96A1e4dd959b224d23060d58bC
 
 ## Local environment set up
 
@@ -12,17 +24,19 @@ The Website is online and running at [Website]()
 
 2. npm i
 
-3. npm start
+3. Set up .env
 
-4. npx hardhat console --network mantleTestnet
+4. npm start
 
-5. npx hardhat run scripts/deploy.js --network mantleTestnet
+5. npx hardhat console --network mantleTestnet
 
-6. const contract = await ethers.getContractFactory("NftMarketPlaceV2")
+6. npx hardhat run scripts/deploy.js --network mantleTestnet
 
-7. const Contract = await contract.attach("[input address from deploying NftMarketPlaceV2 contract (step 5)]")
+7. const contract = await ethers.getContractFactory("NftMarketPlaceV2")
 
-8. await Contract.setNftAddress("[input address from NFTV2 contract (step 5)]")
+8. const Contract = await contract.attach("[input address from deploying NftMarketPlaceV2 contract (step 6)]")
+
+9. await Contract.setNftAddress("[input address from NFTV2 contract (step 6)]")
 
 ## Video Demo
 
@@ -32,6 +46,8 @@ Running currently on the Mantle Testnet
 A NFT Marketplace running currently on the Mantle Testnet. Let's you mint, sell and buy NFT's. During the minting we store the Metadata on IPFS and only store the TokenURI on-chain.
 
 ### In Process
+
+#### Allow users to auction their NFTs in an Eng and Dutch auction (prototypes already deployed)
 
 #### NFT Tx History (Used the covalent API, doesn't feature Mantle testnet yet)
 
@@ -54,7 +70,7 @@ Note: In the Mantle docs there is an API to easily integrate their bridge into t
 
 ### Demo videos:
 
-NFT Marketplace: (make updated version)
+NFT Marketplace:
 
 SKD Hyphen: https://www.youtube.com/watch?v=cViRhJu1qIM (this bridge doesn't feature the mantle network yet)
 
@@ -93,5 +109,3 @@ And all contracts modified accordingly: [Code]()
 
 - Handling Allowance
 - IPFS upload
-
-## To-do's

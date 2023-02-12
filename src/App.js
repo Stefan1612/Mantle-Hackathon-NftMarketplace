@@ -656,17 +656,26 @@ function App() {
 
   //uint256 _tokenId, address _nftContractAddress, value
   async function buyNFT(marketItem) {
-    let id = marketItem.tokenId;
-    id = id.toNumber();
-    let price = marketItem.price;
-    price = ethers.utils.parseEther(price);
-    /* let tx = */ await signerContractMarket.buyMarketToken(
-      id,
-      /*  ContractAddress[5001].NFT, */
-      {
-        value: price,
+    if (checkIfUserLoggedIn()) {
+      //make sure the user is connected to the correct network
+      if (checkIfUserConnectedToCorrectNetwork()) {
+        let id = marketItem.tokenId;
+        id = id.toNumber();
+        let price = marketItem.price;
+        price = ethers.utils.parseEther(price);
+        /* let tx = */ await signerContractMarket.buyMarketToken(
+          id,
+          /*  ContractAddress[5001].NFT, */
+          {
+            value: price,
+          }
+        );
+      } else {
+        window.alert("Change to the Mantle network");
       }
-    );
+    } else {
+      window.alert("You need to connect your wallet first");
+    }
   }
 
   // BUG: inputting a [0,]... bugs the website
