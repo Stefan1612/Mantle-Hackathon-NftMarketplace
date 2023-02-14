@@ -36,12 +36,12 @@ const OwnNfts = (props) => {
               align="center"
               color={"secondary"}
             >
-              NFT's that you currently own!
+              NFTs that you currently own!
             </Typography>
             {!props.instance && !props.network.chainId && (
               <Box sx={{ textAlign: "center" }}>
                 <Typography variant={"h2"} component={"h2"}>
-                  Hey you need to login first before you can see your NFTs!
+                  Hey, you need to login first before you can see your NFTs!
                 </Typography>
                 <Button
                   variant="outlined"

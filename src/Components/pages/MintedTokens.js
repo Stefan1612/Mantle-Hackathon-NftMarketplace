@@ -33,7 +33,7 @@ const MintedTokens = (props) => {
             {!props.instance && !props.network.chainId && (
               <Box sx={{ textAlign: "center" }}>
                 <Typography variant={"h2"} component={"h2"}>
-                  Hey you need to login first before you can see your Minted
+                  Hey, you need to login first before you can see your minted
                   NFTs!
                 </Typography>
                 <Button

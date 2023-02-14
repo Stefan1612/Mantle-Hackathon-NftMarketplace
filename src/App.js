@@ -990,15 +990,6 @@ function App() {
             }
           />
         </Routes>
-
-        {/* <TextField
-          variant={"filled"}
-          placeholder="New NFT contract address"
-          type="text"
-          // maxLength="30"
-          onChange={(e) => handleChangeNftAddress(e)}
-        />
-        <Button onClick={(e) => changeNftAddress(e)}>Change NFT address</Button> */}
       </Box>
     </ThemeProvider>
   );

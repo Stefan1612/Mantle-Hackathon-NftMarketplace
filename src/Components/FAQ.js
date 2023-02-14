@@ -45,7 +45,7 @@ export default function SimpleAccordion() {
           <Typography>What are the minting fees?</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>Minting an NFT cost 0.002 ether</Typography>
+          <Typography>Minting an NFT cost 0.002 bit</Typography>
         </AccordionDetails>
       </Accordion>
       <Accordion>
