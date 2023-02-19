@@ -38,8 +38,6 @@ EngAuctionFactory: https://explorer.testnet.mantle.xyz/address/0xec477096A919Ff9
 
 9. await Contract.setNftAddress("[input address from NFTV2 contract (step 6)]")
 
-## Video Demo
-
 ## Approach
 
 Running currently on the Mantle Testnet
@@ -70,7 +68,7 @@ Note: In the Mantle docs there is an API to easily integrate their bridge into t
 
 ### Demo videos:
 
-NFT Marketplace:
+NFT Marketplace: https://www.youtube.com/watch?v=YPiSkegUzG0
 
 SKD Hyphen: https://www.youtube.com/watch?v=cViRhJu1qIM (this bridge doesn't feature the mantle network yet)
 
