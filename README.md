@@ -1,5 +1,9 @@
 # NFT-Marketplace
 
+## Demo Video
+
+NFT Marketplace: https://www.youtube.com/watch?v=YPiSkegUzG0
+
 ## Status
 
 The NFT Marketplace is currently running and functional on the Mantle Testnet
@@ -67,8 +71,6 @@ Note: In the Mantle docs there is an API to easily integrate their bridge into t
 ## Biconomy
 
 ### Demo videos:
-
-NFT Marketplace: https://www.youtube.com/watch?v=YPiSkegUzG0
 
 SKD Hyphen: https://www.youtube.com/watch?v=cViRhJu1qIM (this bridge doesn't feature the mantle network yet)
 
